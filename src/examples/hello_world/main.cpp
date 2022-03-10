@@ -30,16 +30,22 @@ int main(int, char const**)
 {
 	served::multiplexer mux;
 
-	mux.handle("/hello")
-		.get([](served::response & res, const served::request &) {
+	mux.handle("/get_address_info")
+		.post([](served::response & res, const served::request &) {
+			res << "Hello world";
+		});
+    mux.handle("/get_address_info")
+		.post([](served::response & res, const served::request &) {
+
 			res << "Hello world";
 		});
 
 	std::cout << "Try this example with:" << std::endl;
-	std::cout << " curl http://localhost:8123" << std::endl;
+	std::cout << " curl http://localhost:8124" << std::endl;
 
-	served::net::server server("127.0.0.1", "8123", mux);
+	served::net::server server("127.0.0.1", "8124", mux);
 	server.run(10); // Run with a pool of 10 threads.
 
 	return 0;
 }
+
